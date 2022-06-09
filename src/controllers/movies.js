@@ -19,9 +19,6 @@ const getMovieById = async (req, res, next) => {
     const result = { error: "Movie not found" };
     return res.status(404).json(result);
   }
-  // if (!movie) {
-  //   next(new Error("Movie not found"));
-  // }
 
   res.json({ data: movie });
 };
