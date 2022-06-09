@@ -1,7 +1,15 @@
 const prisma = require("../utils/prisma");
 
-const getAllMovies = async (_, res) => {
+const getAllMovies = async (req, res) => {
+  const { gt, lt } = req.query;
+
   const allMovies = await prisma.movie.findMany({
+    where: {
+      runtimeMins: {
+        gt: gt ? +gt : undefined,
+        lt: lt ? +lt : undefined,
+      },
+    },
     include: { screenings: true },
   });
 
@@ -29,7 +37,7 @@ const createMovie = async (req, res) => {
   const newMovie = await prisma.movie.create({
     data: {
       title,
-      runtimeMins,
+      runtimeMins: {},
     },
   });
 
